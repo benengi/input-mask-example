@@ -1,14 +1,26 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Input Mask Example
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <form [formGroup]="form" (submit)="submit($event)">
+    <ion-item>
+      <!-- Setting mask with limited length.-->
+      <!-- Задаём маску с ограничением длины.-->
+      <ion-input type="tel" formControlName="phone" [value]="form.get('phone').value" name="phone" placeholder="Phone"
+                 [brmasker]="{mask:'0(000)000-00-00', len:15}"></ion-input>
+    </ion-item>
+    <!-- This is just for example. Note that form.phone will be modified by the mask, so don't forget to get
+    raw value of this field. You have to filter out any spaces, parenthesis and hyphens. getRawPhone() consists
+     example of filtering all non-numeric symbols.-->
+    <!-- Пример маски. Поле form.phone модифицируется маской, поэтому будет содержать пробелы, дефисы и скобки.
+    Поэтому для использования чистого значения необходимо его фильтровать. getRawPhone() имеет пример для исключения
+    любых нецифровых символов.-->
+    <button ion-button (click)="getRawPhone()" type="button">Get raw phone</button>
+    <span>{{rawPhone}}</span>
+  </form>
 </ion-content>
